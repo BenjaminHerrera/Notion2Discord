@@ -1,4 +1,5 @@
 # Notion2Discord (N2D)
+### Made with 💖 by Benjamin Herrera
 N2D is a simple to use script that sends messages to a Discord channel for every
 new update to the items in your Notion database!
 
