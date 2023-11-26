@@ -3,6 +3,8 @@
 N2D is a simple to use script that sends messages to a Discord channel for every
 new update to the items in your Notion database!
 
+For any questions, please contact me via Discord at `@bherrera` or email at `b10@asu.edu`
+
 ## 👀 Preview
 What it looks like on Notion
 
