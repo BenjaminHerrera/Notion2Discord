@@ -1,9 +1,18 @@
 #!/bin/bash
 
-# Define the current directory and crontab file
+# Define variables for installation
+USER_CONDA_PATH="/home/blherre4/miniconda3/condabin/conda"
+ROOT_CONDA_PATH=$(dirname $(dirname $USER_CONDA_PATH))
 CURRENT_DIR=$(pwd)
 USERNAME=$(whoami)
 CRONTAB_FILE="/etc/cron.d/n2d"
+
+# Check for the argument
+if [ -z "$1" ]; then
+    echo "Usage: $0 <minutes>"
+    exit 1
+fi
+MINUTES=$1
 
 # Initialize Miniconda and create the n2d environment
 # Check if the environment already exists
@@ -14,17 +23,16 @@ else
     conda create -n n2d python=3.8 -y
     conda init bash
 fi
-/home/$USERNAME/miniconda3/envs/n2d/bin/pip install -r ./notion2discord/requirements.txt
+$ROOT_CONDA_PATH/envs/n2d/bin/pip install -r ./notion2discord/requirements.txt
 
 # Create the crontab file to run main.py every minute
 # Check if the crontab file exists and create or update it
 if [ -f "$CRONTAB_FILE" ]; then
     echo "Crontab file already exists. Updating..."
-    echo "* * * * * root cd $CURRENT_DIR/notion2discord/ && /home/$USERNAME/miniconda3/envs/n2d/bin/python -B main.py >> /var/log/n2d.log 2>&1" | sudo tee -a "$CRONTAB_FILE" > /dev/null
 else
     echo "Creating crontab file..."
-    echo "* * * * * root cd $CURRENT_DIR/notion2discord/ && /home/$USERNAME/miniconda3/envs/n2d/bin/python -B main.py >> /var/log/n2d.log 2>&1" | sudo tee "$CRONTAB_FILE" > /dev/null
 fi
+echo "*/$MINUTES * * * * root cd $CURRENT_DIR/notion2discord/ && $ROOT_CONDA_PATH/envs/n2d/bin/python -B main.py >> /var/log/n2d.log 2>&1" | sudo tee "$CRONTAB_FILE" > /dev/null
 
 # Set the correct permissions for the crontab file
 sudo chmod 0644 "$CRONTAB_FILE"
@@ -50,6 +58,6 @@ issues with the cron job, please diagnose with the following commands:
 >> cat /var/log/n2d.log                   # View output from the cron job
 >> cat /etc/cron.d/n2d                    # View output from the cron job
 
-To stop the cron job, comment out the line in `/etc/cron.d/n2d`
+To stop the cron job, comment out the line in "/etc/cron.d/n2d"
 
 EOF

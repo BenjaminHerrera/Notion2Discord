@@ -63,7 +63,7 @@ run the project.
 
 ### If you want to use 🐍 `PYTHON` with ⏳ `CRONTAB` and 🧰 `MINICONDA`
 
-1. `./install_crontab.sh`
+1. `bash ./install_crontab.sh`
 
 ### If you want to use 🐍 `PYTHON` with no repeat
 
@@ -102,10 +102,12 @@ have been edited 60 seconds plus `last_update_offset` seconds amount of time.
 * Q: How does it work? 🤔
   * A: The script works by checking to see if a Notion item was changed after
   the last check. The script leverages `crontab` to check **every minute**.
-* Q: Why using crontab? ⏳❓
-  * A: `crontab` is much more efficient. This project is designed to be easy to
-  use and lightweight on resource utilization.
+* Q: Why use crontab? ⏳❓
+  * A: `crontab` is more efficient than using a while true loop or a scheduler
+  inside Python. This project is designed to be easy to use and lightweight on
+  resource utilization. You can dynamically control the refresh rate without
+  stopping the system.
 * Q: I noticed a bug/issue. How do I report it? 🚨
   * A: Please go to the [issues page](https://github.com/BenjaminHerrera/Notion2Discord/issues)
   and create a new issue there. When you create an issue, there will be steps on
-  how to communicate them. Thanks!
+  how to communicate them. Thanks in advance!
