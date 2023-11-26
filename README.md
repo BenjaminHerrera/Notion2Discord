@@ -10,7 +10,7 @@ new update to the items in your Notion database!
 
 ## Setup Guide
 This is going to be tedious, but bare with me! 😉👍
-1. Create a `.env` file in the root directory. It should have the following contents:
+1. Create a `.env` file in the `./` directory. It should have the following contents:
 ```bash
 NOTION_INTEGRATION_TOKEN="..."
 NOTION_DATABASE_ID="..."

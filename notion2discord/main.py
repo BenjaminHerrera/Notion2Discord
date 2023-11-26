@@ -10,6 +10,10 @@ import time
 
 # Main process
 if __name__ == "__main__":
+    # ! DEBUG: PRINT STARTING MESSAGE
+    if config.debug_mode:
+        print(">>>  Starting process")
+
     # Get the last update value from environment
     LAST_UPDATE = get_tracker_var("N2D_LAST_UPDATE")
     if not LAST_UPDATE:
@@ -27,6 +31,13 @@ if __name__ == "__main__":
         # If the last edited item is above the last time since update, add
         if last_edited_time > LAST_UPDATE:
             work_items.append(item)
+
+    # ! DEBUG: NUMBER OF ITEMS TO WORK
+    if config.debug_mode:
+        print(
+            ">>>  Number of items to dispatch: "
+            + str(len(work_items[: config.dispatch_limit]))
+        )
 
     # Iterate through the cards in your database
     for item in work_items[: config.dispatch_limit]:
@@ -299,9 +310,9 @@ if __name__ == "__main__":
                     }
                 )
 
-        # ! DEBUG
+        # ! DEBUG: PRINT THE CONTENT OF THE INFORMATION TO DISPATCH
         if config.debug_mode:
-            print("Dispatching :: " + item_name)
+            print(">>>  Dispatching: " + item_name)
             pprint(fields)
             print()
 
@@ -310,3 +321,7 @@ if __name__ == "__main__":
 
     # Write to system environment about last update
     set_tracker_var("N2D_LAST_UPDATE", int(time.time()))
+
+    # ! DEBUG: PRINT END MESSAGE
+    if config.debug_mode:
+        print(">>>  Process completed")
