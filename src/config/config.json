@@ -2,11 +2,12 @@
   "logo": "https://github.com/BenjaminHerrera/Notion2Discord/blob/main/logo.png?raw=true",
   "name": "Notion Updater",
   "color": 5097958,
-  "inline_attributes": false,
+  "inline_attributes": true,
   "datetime_format_with_time": "%d %b %Y @ %H:%M",
   "datetime_format_without_time": "%d %b %Y",
-  "dispatch_limit": 10,
+  "dispatch_limit": 1,
   "empty_value": "N/A",
   "checkbox_true": "✅",
-  "checkbox_false": "❌"
+  "checkbox_false": "❌",
+  "debug_mode": true
 }

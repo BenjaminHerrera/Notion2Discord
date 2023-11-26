@@ -3,6 +3,11 @@
 N2D is a simple to use script that sends messages to a Discord channel for every
 new update to the items in your Notion database!
 
+## Dependencies
+1. Any Linux Distribution
+2. Docker (if not using in-house python packages)
+3. Python3.9+ (if not using Docker)
+
 ## Setup Guide
 This is going to be tedious, but bare with me! 😉👍
 1. Create a `.env` file in the root directory. It should have the following contents:

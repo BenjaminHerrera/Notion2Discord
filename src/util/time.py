@@ -28,3 +28,20 @@ def transform_datetime(input_str: str) -> str:
     else:
         result = dt.strftime(config.datetime_format_without_time)
     return result
+
+
+def get_unix_time(input_str: str) -> int:
+    """Gets the unix timestamp of a given datetime string
+
+    Args:
+        input_str (str): datetime string to parse
+
+    Returns:
+        int: unix timestamp representation
+    """
+
+    # Parse the ISO 8601 string to a datetime object
+    dt = datetime.strptime(input_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+
+    # Convert the datetime object to a Unix timestamp
+    return int(dt.timestamp())

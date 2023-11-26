@@ -7,6 +7,7 @@ import requests
 def post_to_discord(
     title: str,
     message: str,
+    url: str,
     image: str = None,
     fields: List[dict] = None,
 ) -> int:
@@ -33,6 +34,7 @@ def post_to_discord(
                 "image": {
                     "url": image,
                 },
+                "url": url,
             }
         ],
         "username": config.name,

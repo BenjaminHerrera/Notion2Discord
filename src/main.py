@@ -2,39 +2,61 @@
 from util.notion import get_notion_updates
 from util.discord import post_to_discord
 from util.dict_obj import DictObj
-from util.time import transform_datetime
+from util.time import transform_datetime, get_unix_time
+from util.track import set_tracker_var, get_tracker_var
 from config.config import config
-from pprint import pprint  # noqa
+from pprint import pprint
+import time
 
 # Main process
 if __name__ == "__main__":
+    # Get the last update value from environment
+    LAST_UPDATE = get_tracker_var("N2D_LAST_UPDATE")
+    if not LAST_UPDATE:
+        LAST_UPDATE = 0
+
+    # Get items where the last edited time is above the LAST_UPDATE
+    work_items = []
+    for i in get_notion_updates():
+        # Wrap dict in DictObj
+        item = DictObj(i)
+
+        # Get the timestamp of the iterated item's last edited time
+        last_edited_time = get_unix_time(item.last_edited_time)
+
+        # If the last edited item is above the last time since update, add
+        if last_edited_time > LAST_UPDATE:
+            work_items.append(item)
+
     # Iterate through the cards in your database
-    for item in get_notion_updates()[: config.dispatch_limit]:
+    for item in work_items[: config.dispatch_limit]:
         # Reset tracking variables
-        item_name = ""
+        item_name = "NEW UPDATE // "
         image = None
         fields = []
 
-        # Wrap dict in DictObj
-        item = DictObj(item)
-
-        # ! DEBUG
-        # pprint(item)
-
         # Place image if it exists
         if item.cover is not None:
-            image = item.cover.file.url
+            format = item.cover.type
+            image = item.cover[format].url
 
         # Iterate through the item's properties
         for key in item.properties:
             # If the iterated key is the title, save the title name
             if "title" in item.properties[key]:
-                item_name = item.properties[key].title[0]["plain_text"]
+                # Extract the tile
+                title = item.properties[key].title
+
+                # Update item name based on the card's title
+                if title:
+                    item_name += item.properties[key].title[0]["plain_text"]
+                else:
+                    item_name += config.empty_value
 
             # If the iterated key is of type PEOPLE
             if "people" in item.properties[key]:
                 # Format the value
-                value = ", ".join(
+                value = "\n".join(
                     [i["name"] for i in item.properties[key].people]
                 )
                 if not value:
@@ -172,7 +194,7 @@ if __name__ == "__main__":
             # If the iterated key is of type MULTI_SELECT
             if "multi_select" in item.properties[key]:
                 # Format the value
-                value = ", ".join(
+                value = "\n".join(
                     [i["name"] for i in item.properties[key].multi_select]
                 )
                 if not value:
@@ -278,7 +300,13 @@ if __name__ == "__main__":
                 )
 
         # ! DEBUG
-        # pprint(fields)
+        if config.debug_mode:
+            print("Dispatching :: " + item_name)
+            pprint(fields)
+            print()
 
         # Send to channel
-        post_to_discord(item_name, "", image=image, fields=fields)
+        post_to_discord(item_name, "", item.url, image=image, fields=fields)
+
+    # Write to system environment about last update
+    set_tracker_var("N2D_LAST_UPDATE", int(time.time()))
