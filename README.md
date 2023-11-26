@@ -10,30 +10,27 @@ new update to the items in your Notion database!
 
 ## Setup Guide
 This is going to be tedious, but bare with me! 😉👍
-1. Create a `.env` file in the `./` directory. It should have the following contents:
+1. Git clone this repo
+```bash
+git clone https://github.com/BenjaminHerrera/Notion2Discord.git
+```
+2. Create a `.env` file in the `./` directory. It should have the following contents:
 ```bash
 NOTION_INTEGRATION_TOKEN="..."
 NOTION_DATABASE_ID="..."
 DISCORD_WEBHOOK_URL="..."
 ```
-2. Go to [your Notion integration page](https://www.notion.so/my-integrations)
-3. Click on `New Integration`, Create a name for this integration, and
-then press `submit`.
-4. Copy the `Internal Integration Secret` key and paste it as a value for the
-`NOTION_INTEGRATION_TOKEN` variable in your `.env` file.
-5. Go to your database on Notion and click on the three dots on the top right
-of the page.
-6. Look for `Add connections`, click it, search for the integration that you made,
-and select it.
+3. Go to [your Notion integration page](https://www.notion.so/my-integrations) >>
+`New Integration` >> Enter name for integration >> `Submit` >> Copy `Internal Integration Secret` >> Paste it as a value for the `NOTION_INTEGRATION_TOKEN` variable in
+your `.env` file.
+5. Go to your database on Notion >> Click on the three dots on the top right
+of the page >> `Add connections` >> Select integration that you made.
 7. Copy the database's link and extract the substring `<hash_1>` from this format:
 ```
 https://www.notion.so/<hash_1>?v=<hash_2>
 ```
 8. Place this substring as a value for the `NOTION_DATABASE_ID` variable in your
 `.env` file.
-9. Go to the Discord Channel that you want to send updates to and click on the
-gear icon next to its name when you hover over it.
-10. Go to `Integrations`, click on `Webhooks`, then `New Webhook`.
-11. Click on the new webhook that was created for you and click `Copy Webhook URL`.
-12. Paste the URL you copied into the value section of the `DISCORD_WEBHOOK_URL`
-variable in your `.env` file.
+9. Click on the gear icon next discord channel name >> `Integrations` >> `Webhooks` >> `New Webhook` >> Click on new webhook >> `Copy Webhook URL` >> Paste the URL into the value section of the `DISCORD_WEBHOOK_URL` variable in your `.env` file.
+13. Now that you have your `.env` created, check the [Run Guide]() on how to
+run the project.
