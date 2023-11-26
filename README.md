@@ -103,3 +103,7 @@ have been edited 60 seconds plus `last_update_offset` seconds amount of time.
 * Q: Why using crontab? ⏳❓
   * A: `crontab` is much more efficient. This project is designed to be easy to
   use and lightweight on resource utilization.
+* Q: I noticed a bug/issue. How do I report it? 🚨
+  * A: Please go to the [issues page](https://github.com/BenjaminHerrera/Notion2Discord/issues)
+  and create a new issue there. When you create an issue, there will be steps on
+  how to communicate them. Thanks!
