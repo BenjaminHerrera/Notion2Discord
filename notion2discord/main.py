@@ -12,25 +12,43 @@ import time
 if __name__ == "__main__":
     # ! DEBUG: PRINT STARTING MESSAGE
     if config.debug_mode:
-        print(">>>  Starting process")
+        print("\n\n>>>  Starting process")
 
     # Get the last update value from environment
     LAST_UPDATE = get_tracker_var("N2D_LAST_UPDATE")
+
+    # Place LAST_UPDATE to now if LAST_UPDATE is None
     if not LAST_UPDATE:
-        LAST_UPDATE = 0
+        set_tracker_var("N2D_LAST_UPDATE", int(time.time()))
+        LAST_UPDATE = get_tracker_var("N2D_LAST_UPDATE")
+
+        # ! DEBUG: PRINT LAST_UPDATE
+        if config.debug_mode:
+            print(">>>  Missing last update. Recreating last update to now.")
+
+    # ! DEBUG: PRINT LAST_UPDATE
+    if config.debug_mode:
+        print(">>>  Last Updated: " + str(LAST_UPDATE))
+        print(">>>  Current Time: " + str(int(time.time())))
 
     # Get items where the last edited time is above the LAST_UPDATE
     work_items = []
+    max_time = 0
     for i in get_notion_updates():
         # Wrap dict in DictObj
         item = DictObj(i)
 
         # Get the timestamp of the iterated item's last edited time
         last_edited_time = get_unix_time(item.last_edited_time)
+        max_time = max(max_time, last_edited_time)
 
         # If the last edited item is above the last time since update, add
-        if last_edited_time > LAST_UPDATE:
+        if last_edited_time > LAST_UPDATE - config.last_update_offset:
             work_items.append(item)
+
+    # ! DEBUG: PRINT LATEST CARD TIME
+    if config.debug_mode:
+        print(">>>  Latest edited card time: " + str(max_time))
 
     # ! DEBUG: NUMBER OF ITEMS TO WORK
     if config.debug_mode:
@@ -313,13 +331,17 @@ if __name__ == "__main__":
         # ! DEBUG: PRINT THE CONTENT OF THE INFORMATION TO DISPATCH
         if config.debug_mode:
             print(">>>  Dispatching: " + item_name)
+            print(
+                ">>>      Last Updated: "
+                + str(get_unix_time(item.last_edited_time))
+            )
             pprint(fields)
             print()
 
         # Send to channel
         post_to_discord(item_name, "", item.url, image=image, fields=fields)
 
-    # Write to system environment about last update
+    # Set last tracked
     set_tracker_var("N2D_LAST_UPDATE", int(time.time()))
 
     # ! DEBUG: PRINT END MESSAGE

@@ -1,8 +1,12 @@
 version: '3.8'
 
 services:
-  app:
+  n2d:
     build: ./notion2discord
     restart: always
     volumes:
       - ./.env:/usr/src/app/.env
+      - n2d_home:/usr/src/app
+
+volumes:
+  n2d_home:

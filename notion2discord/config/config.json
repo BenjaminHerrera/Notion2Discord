@@ -5,9 +5,10 @@
   "inline_attributes": true,
   "datetime_format_with_time": "%d %b %Y @ %H:%M",
   "datetime_format_without_time": "%d %b %Y",
-  "dispatch_limit": 1,
+  "dispatch_limit": 10,
   "empty_value": "N/A",
   "checkbox_true": "✅",
   "checkbox_false": "❌",
-  "debug_mode": true
+  "debug_mode": true,
+  "last_update_offset": 30
 }

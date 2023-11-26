@@ -14,16 +14,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && apt-get -y install cron
 
 # Create crontab file and set up cron job
-RUN echo "* * * * * cd /usr/src/app && /usr/local/bin/python -B main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/my-crontab
+RUN echo "* * * * * cd /usr/src/app && /usr/local/bin/python -B main.py >> /var/log/n2d.log 2>&1" > /etc/cron.d/n2d-crontab
 
 # Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/my-crontab
+RUN chmod 0644 /etc/cron.d/n2d-crontab
 
 # Apply cron job
-RUN crontab /etc/cron.d/my-crontab
+RUN crontab /etc/cron.d/n2d-crontab
 
 # Create the log file to be able to run tail
-RUN touch /var/log/cron.log
+RUN touch /var/log/n2d.log
 
 # Run the command on container startup
-CMD cron && tail -f /var/log/cron.log
+CMD cron && tail -f /var/log/n2d.log
