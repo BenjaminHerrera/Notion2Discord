@@ -1,23 +1,44 @@
 # Imports
 from config.config import config, WEBHOOK_URL
+from typing import List
 import requests
 
 
-# Post message information via the given Discord webhook
-def post_to_discord(message, title=None, description=None, fields=None):
+def post_to_discord(
+    title: str,
+    message: str,
+    image: str = None,
+    fields: List[dict] = None,
+) -> int:
+    """Post Notion database item to a discord channel using channel webhooks.
+
+    Args:
+        title (str): Title of the database item
+        message (str): Main content of the message
+        image (str, optional): Cover of the item. Defaults to None.
+        fields (List[dict], optional): Attributes to display. Defaults to None.
+
+    Returns:
+        int: Response code from Discord
+    """
+
     # Prepare embed structure
-    embed = {
-        "title": title,
-        "description": description,
-        "color": 5097958,
-        "fields": fields,
+    data = {
+        "embeds": [
+            {
+                "title": title,
+                "description": message,
+                "color": config.color,
+                "fields": fields,
+                "image": {
+                    "url": image,
+                },
+            }
+        ],
+        "username": config.name,
+        "avatar_url": config.logo,
     }
 
-    # Only include the embed if title or description is provided
-    if title or description:
-        data = {"embeds": [embed], "avatar_url": config.logo}
-    else:
-        data = {"content": message}
-
     # Send and return response
-    return requests.post(WEBHOOK_URL, json=data).status_code
+    result = requests.post(WEBHOOK_URL, json=data)
+    return result.status_code
