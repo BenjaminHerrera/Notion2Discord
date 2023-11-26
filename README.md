@@ -3,7 +3,7 @@
 N2D is a simple to use script that sends messages to a Discord channel for every
 new update to the items in your Notion database!
 
-## Preview
+## 👀 Preview
 What it looks like on Notion
 
 ![Alt text](resources/docs/NotionExample1.jpg)
@@ -16,12 +16,12 @@ What it looks like on Discord with vertically stacked attributes
 
 ![Alt text](resources/docs/Example2.jpg)
 
-## Dependencies
+## 📚 Dependencies
 1. Any Linux Distribution
 2. Docker (if not using in-house python packages)
 3. Miniconda (if not using Docker)
 
-## Setup Guide
+## 📝 Setup Guide
 This is going to be tedious, but bare with me! 😉👍
 1. Git clone this repo
 ```bash
@@ -49,27 +49,27 @@ https://www.notion.so/<hash_1>?v=<hash_2>
 `Webhooks` >> `New Webhook` >> Click on new webhook >> `Copy Webhook URL` >>
 Paste the URL into the value section of the `DISCORD_WEBHOOK_URL` variable in
 your `.env` file.
-13. Hard parts done! Now that you have your `.env` created, check the
+13. Hard part's done 🎉🎉🎉! Now that you have your `.env` created, check the
 [Run Guide](https://github.com/BenjaminHerrera/Notion2Discord#run-guide) on how to
 run the project.
 
-## Run Guide
+## 🏃‍♂️ Run Guide
 
-### If you want to use `DOCKER` _(preferred)_
+### If you want to use 🐳 `DOCKER` _(preferred)_
 
 1. `docker compose up -d --build`
 
-### If you want to use `PYTHON` with `CRONTAB` and `MINICONDA`
+### If you want to use 🐍 `PYTHON` with ⏳ `CRONTAB` and 🧰 `MINICONDA`
 
 1. `./install_crontab.sh`
 
-### If you want to use `PYTHON` with no repeat
+### If you want to use 🐍 `PYTHON` with no repeat
 
 1. `cd notion2discord`
 2. `pip install -r requirements.txt`
 3. `python main.py`
 
-## Configuration Documentation
+## 📜 Configuration Documentation
 Configuration for the application can be found in `./notion2discord/config/config.json`
 
 - `logo` : _string_ - Image URL to customize your webhook sender
@@ -96,10 +96,10 @@ Discord text channel.
 for lag from Notion and your server's end. Use this value to get items that
 have been edited 60 seconds plus `last_update_offset` seconds amount of time.
 
-## FAQ
-* Q: How does it work?
+## 🙋‍♂️ FAQ
+* Q: How does it work? 🤔
   * A: The script works by checking to see if a Notion item was changed after
   the last check. The script leverages `crontab` to check **every minute**.
-* Q: Why using crontab?
+* Q: Why using crontab? ⏳❓
   * A: `crontab` is much more efficient. This project is designed to be easy to
   use and lightweight on resource utilization.
