@@ -59,7 +59,8 @@ run the project.
 
 ### If you want to use 🐳 `DOCKER` _(preferred)_
 
-NOTE: To update the frequency, editor the `CRON_MINUTES` value in `./docker-compose.yml`. Default is at 15 minutes.
+NOTE: To update the frequency, editor the `MINUTES` arguments value in `./docker-compose.yml`. 
+Default is at 15 minutes.
 1. `docker compose up -d --build`
 
 ### If you want to use 🐍 `PYTHON` with ⏳ `CRONTAB` and 🧰 `MINICONDA`
@@ -75,7 +76,8 @@ preferred repeat frequency.
 3. `python main.py`
 
 ## 📜 Configuration Documentation
-Configuration for the application can be found in [`./notion2discord/config/config.json`]()
+Configuration for the application can be found in 
+[`./notion2discord/config/config.json`](https://github.com/BenjaminHerrera/Notion2Discord/blob/main/notion2discord/config/config.json)
 
 - `logo` : _string_ - Image URL to customize your webhook sender
 - `name` : _string_ - Name of the webhook sender
