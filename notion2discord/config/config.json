@@ -2,7 +2,7 @@
   "logo": "https://github.com/BenjaminHerrera/Notion2Discord/blob/main/resources/logo.png?raw=true",
   "name": "Notion Updater",
   "color": 5097958,
-  "inline_attributes": true,
+  "inline_attributes": false,
   "datetime_format_with_time": "%d %b %Y @ %H:%M",
   "datetime_format_without_time": "%d %b %Y",
   "dispatch_limit": 10,

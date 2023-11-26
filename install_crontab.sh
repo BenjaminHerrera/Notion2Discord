@@ -20,10 +20,10 @@ fi
 # Check if the crontab file exists and create or update it
 if [ -f "$CRONTAB_FILE" ]; then
     echo "Crontab file already exists. Updating..."
-    echo "* * * * * root cd $CURRENT_DIR/notion2discord/ && /home/$USERNAME/miniconda3/envs/n2d/bin/python main.py >> /var/log/n2d.log 2>&1" | sudo tee -a "$CRONTAB_FILE" > /dev/null
+    echo "* * * * * root cd $CURRENT_DIR/notion2discord/ && /home/$USERNAME/miniconda3/envs/n2d/bin/python -B main.py >> /var/log/n2d.log 2>&1" | sudo tee -a "$CRONTAB_FILE" > /dev/null
 else
     echo "Creating crontab file..."
-    echo "* * * * * root cd $CURRENT_DIR/notion2discord/ && /home/$USERNAME/miniconda3/envs/n2d/bin/python main.py >> /var/log/n2d.log 2>&1" | sudo tee "$CRONTAB_FILE" > /dev/null
+    echo "* * * * * root cd $CURRENT_DIR/notion2discord/ && /home/$USERNAME/miniconda3/envs/n2d/bin/python -B main.py >> /var/log/n2d.log 2>&1" | sudo tee "$CRONTAB_FILE" > /dev/null
 fi
 
 # Set the correct permissions for the crontab file
@@ -50,5 +50,6 @@ issues with the cron job, please diagnose with the following commands:
 >> cat /var/log/n2d.log                   # View output from the cron job
 >> cat /etc/cron.d/n2d                    # View output from the cron job
 
+To stop the cron job, comment out the line in `/etc/cron.d/n2d`
 
 EOF
