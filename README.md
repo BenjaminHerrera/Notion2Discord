@@ -59,11 +59,14 @@ run the project.
 
 ### If you want to use 🐳 `DOCKER` _(preferred)_
 
+NOTE: To update the frequency, editor the `CRON_MINUTES` value in `./docker-compose.yml`. Default is at 15 minutes.
 1. `docker compose up -d --build`
 
 ### If you want to use 🐍 `PYTHON` with ⏳ `CRONTAB` and 🧰 `MINICONDA`
 
-1. `bash ./install_crontab.sh`
+NOTE: Installation requires repeat frequency in minutes. Replace `X` with your
+preferred repeat frequency.
+1. `bash ./install_crontab.sh X`
 
 ### If you want to use 🐍 `PYTHON` with no repeat
 
@@ -72,7 +75,7 @@ run the project.
 3. `python main.py`
 
 ## 📜 Configuration Documentation
-Configuration for the application can be found in `./notion2discord/config/config.json`
+Configuration for the application can be found in [`./notion2discord/config/config.json`]()
 
 - `logo` : _string_ - Image URL to customize your webhook sender
 - `name` : _string_ - Name of the webhook sender
@@ -101,7 +104,7 @@ have been edited 60 seconds plus `last_update_offset` seconds amount of time.
 ## 🙋‍♂️ FAQ
 * Q: How does it work? 🤔
   * A: The script works by checking to see if a Notion item was changed after
-  the last check. The script leverages `crontab` to check **every minute**.
+  the last check. The script leverages `crontab` to check your every now and then.
 * Q: Why use crontab? ⏳❓
   * A: `crontab` is more efficient than using a while true loop or a scheduler
   inside Python. This project is designed to be easy to use and lightweight on

@@ -55,8 +55,8 @@ issues with the cron job, please diagnose with the following commands:
 >> sudo systemctl restart cron.service    # Restart the cron service
 >> sudo systemctl stop cron.service       # Stop the cron service
 >> sudo systemctl start cron.service      # Start the cron service if stopped
->> cat /var/log/n2d.log                   # View output from the cron job
->> cat /etc/cron.d/n2d                    # View output from the cron job
+>> cat /var/log/n2d.log                   # View output from the cron tab
+>> cat /etc/cron.d/n2d                    # View contents of the cron tab
 
 To stop the cron job, comment out the line in "/etc/cron.d/n2d"
 
